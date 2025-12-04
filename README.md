@@ -51,9 +51,6 @@ Este nodo:
 -   Muestra la imagen interpretada
 -   Publica el tópico:
 
-```{=html}
-<!-- -->
-```
     /gesture_command
 
 ------------------------------------------------------------------------
