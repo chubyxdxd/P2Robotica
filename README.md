@@ -50,7 +50,8 @@ Este nodo:
 -   Tiene un **suscriptor** que recibe la imagen
 -   Muestra la imagen interpretada
 -   Publica el tópico:
-
+```{=html}
+```
     /gesture_command
 
 ------------------------------------------------------------------------
