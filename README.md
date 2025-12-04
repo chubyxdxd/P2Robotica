@@ -13,7 +13,7 @@
 Para poder correr este ejercicio, se debe entrar a la carpeta **`EJ2`**,
 donde se encuentra:
 
--   el *workspace* (`ws`)
+-   el *workspace* (`EJ2_ws`)
 -   el archivo **`.ino`**, correspondiente al código cargable en la
     **ESP32** como *micro-ros-agent*.
 
