@@ -2,12 +2,6 @@
 
 **Examen Segundo Parcial de Robótica**
 
-------------------------------------------------------------------------
-
-## Ejercicio 1
-
-------------------------------------------------------------------------
-
 ## Ejercicio 2
 
 Para poder correr este ejercicio, se debe entrar a la carpeta **`EJ2`**,
@@ -79,6 +73,3 @@ el simulador ejecutando:
 
     ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 
-------------------------------------------------------------------------
-
-## 📘 Ejercicio 3
