@@ -23,6 +23,7 @@ rcl_subscription_t subscriber;
 geometry_msgs__msg__Twist twist_msg;
 std_msgs__msg__String feedback_msg;
 int flag = 0;
+int last_button_state = LOW;   // <--- agregado
 rclc_executor_t executor;
 rclc_support_t support;
 rcl_allocator_t allocator;
@@ -51,13 +52,19 @@ void subscription_callback(const void * msgin) {
   digitalWrite(LED_FORWARD, LOW);
   digitalWrite(LED_BACKWARD, LOW);
   digitalWrite(LED_STOP, LOW);
-   // === COMPARACIONES CORRECTAS ===
-  if (flag == 1)
-  {
+
+    int emergency = digitalRead(BTN_EMERGENCY);
+
+    // --- LOGICA DEL BOTON CORREGIDA ---
+    if (emergency == HIGH && last_button_state == LOW) {
       twist_msg.linear.x = 0.0;
       twist_msg.angular.z = 0.0;
-  }
-  else if (strcmp(msg->data.data, "IZQUIERDA") == 0) {
+      return;
+    }
+
+    last_button_state = emergency;
+    // -----------------------------------
+  if (strcmp(msg->data.data, "IZQUIERDA") == 0) {
       twist_msg.linear.x = 0.0;
       twist_msg.angular.z = 1.0;
       digitalWrite(LED_LEFT, HIGH);
@@ -87,14 +94,9 @@ void subscription_callback(const void * msgin) {
   Serial.println(msg->data.data);
 }
 
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {  
+void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   RCLC_UNUSED(last_call_time);
   if (timer != NULL) {
-    // Publish the message
-    bool emergency = digitalRead(BTN_EMERGENCY);
-    if(emergency){
-      flag ^=1;
-  }
     RCSOFTCHECK(rcl_publish(&publisher, &twist_msg, NULL));
   }
 }
@@ -102,55 +104,47 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
 void setup() {
   Serial.begin(115200);
   
-  // Configure button pins
-  pinMode(BTN_EMERGENCY, INPUT_PULLDOWN);
+  pinMode(BTN_EMERGENCY, INPUT);
   pinMode(LED_RIGHT, OUTPUT);
   pinMode(LED_LEFT, OUTPUT);
   pinMode(LED_STOP, OUTPUT);
   pinMode(LED_FORWARD, OUTPUT);
   pinMode(LED_BACKWARD, OUTPUT);
-  // Configure micro-ROS transport
+
   set_microros_transports();
   
   delay(2000);
   
   allocator = rcl_get_default_allocator();
   
-  // Create init_options
   RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
   
-  // Create node
   RCCHECK(rclc_node_init_default(&node, "microros_button_controller", "", &support));
   
-  // Create publisher
   RCCHECK(rclc_publisher_init_default(
     &publisher,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
     "cmd_vel"));
   
-  // Create subscriber
   RCCHECK(rclc_subscription_init_default(
     &subscriber,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
     "gesture_command"));
   
-  // Create timer (100ms = 10Hz)
   const unsigned int timer_timeout = 100;
   RCCHECK(rclc_timer_init_default(
     &timer,
     &support,
     RCL_MS_TO_NS(timer_timeout),
     timer_callback));
-  
-  // Create executor
+
   RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
   RCCHECK(rclc_executor_add_subscription(&executor, &subscriber, &feedback_msg, 
     &subscription_callback, ON_NEW_DATA));
   
-  // Allocate memory for subscriber message
   feedback_msg.data.data = (char *) malloc(100 * sizeof(char));
   feedback_msg.data.size = 0;
   feedback_msg.data.capacity = 100;
@@ -162,3 +156,4 @@ void loop() {
   delay(10);
   RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(10)));
 }
+
