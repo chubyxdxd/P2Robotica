@@ -4,11 +4,11 @@
 
 ------------------------------------------------------------------------
 
-## 📘 Ejercicio 1
+## Ejercicio 1
 
 ------------------------------------------------------------------------
 
-## 📘 Ejercicio 2
+## Ejercicio 2
 
 Para poder correr este ejercicio, se debe entrar a la carpeta **`EJ2`**,
 donde se encuentra:
@@ -17,7 +17,7 @@ donde se encuentra:
 -   el archivo **`.ino`**, correspondiente al código cargable en la
     **ESP32** como *micro-ros-agent*.
 
-### 📷 Adaptación del envío de imágenes
+### Adaptación del envío de imágenes
 
 Dado que no contamos con una Kinect, adaptamos el envío de datos tipo
 **Image** usando una **cámara RGB**, publicando en el tópico:
@@ -26,7 +26,7 @@ Dado que no contamos con una Kinect, adaptamos el envío de datos tipo
 
 El nodo de la cámara se llama `camera_node.py`.
 
-### ▶️ Ejecutar el nodo de la cámara
+### Ejecutar el nodo de la cámara
 
 Para correr el ejecutable:
 
@@ -38,7 +38,7 @@ Asegúrate de tener una cámara conectada y configurada correctamente en
 
 ------------------------------------------------------------------------
 
-### ✋ Nodo de interpretación de gestos
+### Nodo de interpretación de gestos
 
 Para ejecutar el nodo encargado de interpretar gestos con **Mediapipe**,
 usa:
@@ -56,7 +56,7 @@ Este nodo:
 
 ------------------------------------------------------------------------
 
-### 🔌 Inicializar el micro-ROS Agent en la ESP32
+### Inicializar el micro-ROS Agent en la ESP32
 
 Una vez cargado el código en la ESP32, con **Docker instalado** y las
 conexiones de pines a **LEDs y botón** realizadas, se debe ejecutar:
@@ -72,7 +72,7 @@ El nodo de micro-ROS publica en el tópico:
 
 ------------------------------------------------------------------------
 
-### 🤖 Ejecutar el simulador TurtleBot
+### Ejecutar el simulador TurtleBot
 
 Para que el robot en **Gazebo** se mueva según los gestos, se debe abrir
 el simulador ejecutando:
