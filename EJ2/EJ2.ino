@@ -93,7 +93,7 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
     // Publish the message
     bool emergency = digitalRead(BTN_EMERGENCY);
     if(emergency){
-      flag ^=1 
+      flag ^=1;
   }
     RCSOFTCHECK(rcl_publish(&publisher, &twist_msg, NULL));
   }
@@ -103,7 +103,7 @@ void setup() {
   Serial.begin(115200);
   
   // Configure button pins
-  pinMode(BTN_EMERGENCY, INPUT);
+  pinMode(BTN_EMERGENCY, INPUT_PULLDOWN);
   pinMode(LED_RIGHT, OUTPUT);
   pinMode(LED_LEFT, OUTPUT);
   pinMode(LED_STOP, OUTPUT);

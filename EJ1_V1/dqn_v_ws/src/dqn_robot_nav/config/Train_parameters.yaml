@@ -1,0 +1,22 @@
+training:
+  n_episodes: 500
+  max_steps_per_episode: 500
+
+agent:
+  state_size: 12          # 10 bins + 2 goal features
+  action_size: 5
+  learning_rate: 0.001
+  gamma: 0.99
+  epsilon_start: 1.0
+  epsilon_min: 0.01
+  epsilon_decay: 0.995
+  memory_size: 10000
+  batch_size: 64
+  target_update_freq: 100
+
+state_processor:
+  n_lidar_bins: 10
+
+environment:
+  collision_threshold: 0.2
+  goal_threshold: 0.3
