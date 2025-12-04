@@ -2,10 +2,10 @@
 
 1. REQUISITOS
 
-- Instalar Ubuntu 22.04  
-- Instalar ROS2 Humble  
-- Instalar Gazebo Classic  
-- Instalar TurtleBot3  
+- Instalar Ubuntu 22.04 
+- Instalar ROS2 Humble 
+- Instalar Gazebo Classic 
+- Instalar TurtleBot3 
 - Instalar dependencias Python:
 
 
@@ -40,24 +40,43 @@
 
 dqn_robot_nav/
 │── train_node.py        → Entrenamiento + metas secuenciales
+
 │── test_node.py         → Evaluación del agente
+
 │── environment.py       → Acciones, recompensas, colisiones, odom/LiDAR
+
 │── dqn_agent.py         → DQN, memoria, target network, replay
+
 │── state_processor.py   → Procesamiento del estado (LiDAR → bins)
+
 │── package.xml
+
 │── setup.py
+
 results_20251204_052059/
+
 │── model_episode_50.pkl
+
 │── model_episode_100.pkl
+
 │── model_episode_150.pkl
+
 │── model_episode_200.pkl
+
 │── model_episode_250.pkl
+
 │── model_episode_300.pkl
+
 │── model_episode_350.pkl
+
 │── model_episode_400.pkl
+
 │── model_episode_450.pkl
+
 │── model_episode_500.pkl
+
 │── model_final.pkl (este es el modelo a cargar)
+
 │── training_results.png
 
 
